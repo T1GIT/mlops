@@ -1,3 +1,5 @@
 .venv
 .idea
 */__pycache__
+task-4/weights.json
+task-5/dump.pkl

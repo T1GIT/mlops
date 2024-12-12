@@ -8,6 +8,9 @@ readme = "README.md"
 [tool.poe.tasks]
 task-1 = "streamlit run task-1/app.py"
 task-2 = "streamlit run task-2/app.py"
+task-3 = "streamlit run task-3/app.py"
+task-4 = "python task-4/train.py && streamlit run task-4/app.py"
+task-5 = "python task-5/train.py && streamlit run task-5/app.py"
 
 [tool.poetry.dependencies]
 python = "^3.12"
