@@ -1,0 +1,13 @@
+name: MLOps/task-5
+
+services:
+  task5:
+    build:
+      context: ..
+      dockerfile: ./task-5/Dockerfile
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./pipe.pkl:/app/task-5/pipe.pkl:ro
+      - ./categorical_feature_info.json:/app/task-5/categorical_feature_info.json:ro
+      - ./numerical_feature_info.json:/app/task-5/numerical_feature_info.json:ro

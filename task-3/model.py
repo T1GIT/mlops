@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv(r"./task-2/data/income.csv")
+df = pd.read_csv(r"./task-3/data/income.csv")
 raw_df = df.copy(deep=True)
 
 df.drop(

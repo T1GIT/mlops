@@ -4,13 +4,18 @@ version = "0.1.0"
 description = ""
 authors = ["Derbin Dmitry <d.derbin@kryptonite.ru>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poe.tasks]
 task-1 = "streamlit run task-1/app.py"
 task-2 = "streamlit run task-2/app.py"
 task-3 = "streamlit run task-3/app.py"
-task-4 = "python task-4/train.py && streamlit run task-4/app.py"
-task-5 = "python task-5/train.py && streamlit run task-5/app.py"
+task-4 = [
+    { cmd = "python task-4/train.py" },
+    { cmd = "streamlit run task-4/app.py" }
+]
+task-5-train = "python task-5/train.py"
+task-5-start = "docker compose -f task-5/compose.yml up -d --build"
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -18,6 +23,7 @@ pandas = "^2.2.3"
 streamlit = "^1.40.2"
 scikit-learn = "^1.5.2"
 numpy = "^2.1.3"
+category-encoders = "^2.6.4"
 
 
 [build-system]

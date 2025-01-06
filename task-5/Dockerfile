@@ -1,15 +1,14 @@
-FROM python:3.9-slim-buster
+FROM python:3.12-slim
 
 WORKDIR /app
 
-RUN poetry install
+RUN pip install poetry
 
+COPY poetry.lock pyproject.toml ./
+RUN poetry install --no-root
 
-COPY .. .
+COPY ./task-5/app.py ./task-5/app.py
+COPY ./task-5/transformers.py ./task-5/transformers.py
 
-EXPOSE 8000
-
-# Define the command to run your application
-CMD ["python", "your_app.py"]
-
-# TODO: Недоделал
+EXPOSE 8501
+CMD ["poetry", "run", "streamlit", "run", "task-5/app.py", "--server.port=8501"]

@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
-df = pd.read_csv(r"./task-2/data/income.csv")
+df = pd.read_csv(r"./task-4/data/income.csv")
 raw_df = df.copy(deep=True)
 
 df.drop(
