@@ -1,0 +1,14 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+RUN pip install poetry
+
+COPY poetry.lock pyproject.toml ./
+RUN poetry install --no-root
+
+COPY ./task-6/server.py ./task-6/server.py
+COPY ./task-6/transformers.py ./task-6/transformers.py
+
+EXPOSE 8000
+CMD ["poetry", "run", "python", "task-6/server.py"]

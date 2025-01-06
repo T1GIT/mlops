@@ -1,0 +1,22 @@
+name: MLOps/task-6
+
+services:
+  task6-server:
+    build:
+      context: ..
+      dockerfile: ./task-6/Dockerfile-server
+    volumes:
+      - ./pipe.pkl:/app/task-6/pipe.pkl:ro
+      - ./categorical_feature_info.json:/app/task-6/categorical_feature_info.json:ro
+      - ./numerical_feature_info.json:/app/task-6/numerical_feature_info.json:ro
+
+  task6-client:
+    build:
+      context: ..
+      dockerfile: ./task-6/Dockerfile-client
+    ports:
+      - "8501:8501"
+    environment:
+      API_URL: "task6-server:8000"
+    depends_on:
+      - task6-server

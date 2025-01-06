@@ -10,12 +10,15 @@ package-mode = false
 task-1 = "streamlit run task-1/app.py"
 task-2 = "streamlit run task-2/app.py"
 task-3 = "streamlit run task-3/app.py"
-task-4 = [
-    { cmd = "python task-4/train.py" },
-    { cmd = "streamlit run task-4/app.py" }
-]
+task-4-train = "python task-4/train.py"
+task-4-client = "streamlit run task-4/app.py"
 task-5-train = "python task-5/train.py"
-task-5-start = "docker compose -f task-5/compose.yml up -d --build"
+task-5-client = "streamlit run task-5/app.py"
+task-5-docker = "docker compose -f task-5/compose.yml up -d --build"
+task-6-train = "python task-6/train.py"
+task-6-server = "python task-6/server.py"
+task-6-client = "streamlit run task-6/client.py"
+task-6-docker = "docker compose -f task-6/compose.yml up -d --build"
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -24,6 +27,9 @@ streamlit = "^1.40.2"
 scikit-learn = "^1.5.2"
 numpy = "^2.1.3"
 category-encoders = "^2.6.4"
+fastapi = "^0.115.6"
+requests = "^2.32.3"
+uvicorn = "^0.34.0"
 
 
 [build-system]

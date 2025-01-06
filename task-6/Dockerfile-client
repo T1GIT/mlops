@@ -1,0 +1,13 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+RUN pip install poetry
+
+COPY poetry.lock pyproject.toml ./
+RUN poetry install --no-root
+
+COPY ./task-6/client.py ./task-6/client.py
+
+EXPOSE 8501
+CMD ["poetry", "run", "streamlit", "run", "task-6/client.py", "--server.port=8501"]
