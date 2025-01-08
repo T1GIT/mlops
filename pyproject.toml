@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mlops"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["Derbin Dmitry <d.derbin@kryptonite.ru>"]
 readme = "README.md"

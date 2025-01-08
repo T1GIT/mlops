@@ -1,10 +1,11 @@
 import json
 import pickle
+import subprocess
 
 import pandas as pd
 from category_encoders import BinaryEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -35,11 +36,8 @@ for col in numerical_features:
         "avg": int(df[col].mean())
     }
 
-with open("task-6/categorical_feature_info.json", "w") as f:
-    json.dump(categorical_feature_info, f)
-
-with open("task-6/numerical_feature_info.json", "w") as f:
-    json.dump(numerical_feature_info, f)
+with open("task-6/meta.json", "w") as f:
+    json.dump({"categorical": categorical_feature_info, "numerical": numerical_feature_info}, f)
 
 
 X = df.drop('income >50K', axis=1)
@@ -55,10 +53,17 @@ pipe = Pipeline([
         ('log', LogTransformer(), log_features),
         ('scaler', StandardScaler(), numerical_features)
     ], remainder='passthrough')),
-    ('model', RandomForestClassifier(n_estimators=50, max_depth=10))
+    # ('model', RandomForestClassifier(n_estimators=50, max_depth=10))
+    ('model', AdaBoostClassifier(n_estimators=50))
 ])
 
 pipe.fit(X_train, Y_train)
 
-with open("task-6/pipe.pkl", "wb") as f:
-    pickle.dump(pipe, f)
+
+result = subprocess.run(['poetry', 'version'], capture_output=True, text=True, check=True)
+version = result.stdout.strip().split(' ')[1]
+tags = [f'v{version}', 'latest']
+
+for tag in tags:
+    with open(f"task-6/models/{tag}.pkl", "wb") as f:
+        pickle.dump(pipe, f)

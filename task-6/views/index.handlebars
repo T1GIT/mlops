@@ -1,0 +1,107 @@
+<div class="container mt-5 d-flex gap-5">
+    <form id="input-form" class="flex-fill d-flex flex-column gap-3">
+
+        {{#each meta.categorical}}
+            <div class="form-group d-flex align-items-center">
+                <label class="form-label" style="width: 200px" for="{{@key}}">{{@key}}</label>
+                <select class="form-select" name="{{@key}}">
+                    {{#each this}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        {{/each}}
+
+        {{#each meta.numerical}}
+            <div class="form-group d-flex align-items-center">
+                <label class="form-label" style="width: 200px" for="{{@key}}">{{@key}}</label>
+                <input type="number" class="form-control" name="{{@key}}" min="{{min}}" max="{{max}}" value="{{avg}}" />
+            </div>
+        {{/each}}
+
+    </form>
+
+    <div class="flex-fill d-flex flex-column gap-3">
+        <button type="button" class="btn btn-primary" id="predict-button">Сделать предсказание</button>
+
+        <div class="form-group">
+            <label for="predict-result" class="form-label">Предсказание</label>
+            <input type="text" id="predict-result" class="form-control" readonly>
+        </div>
+
+        <div class="border p-2 rounded-3 d-flex flex-column gap-3">
+            <h4>Предложить правильный ответ</h4>
+
+            <div class="form-group">
+                <label for="corrected-select" class="form-label">Правильный ответ</label>
+                <select class="form-select" id="corrected-select">
+                    <option value="0">&lt; 50</option>
+                    <option value="1">&gt; 50</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-secondary" id="corrected-button">Отправить</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const inputFormEl = document.querySelector('#input-form')
+    const predictButtonEl = document.querySelector('#predict-button')
+    const predictResultEl = document.querySelector('#predict-result')
+    const correctedSelectEl = document.querySelector('#corrected-select')
+    const correctedButtonEl = document.querySelector('#corrected-button')
+
+    const meta = JSON.parse(`{{metaJson}}`);
+
+    let id;
+    let prediction;
+    let input;
+
+    predictButtonEl.addEventListener('click', async () => {
+        const formData = new FormData(inputFormEl)
+        input = {}
+        for (const key in meta.categorical) {
+            input[key] = formData.get(key)
+        }
+        for (const key in meta.numerical) {
+            input[key] = Number(formData.get(key))
+        }
+
+
+        const res = await fetch('/predict', {
+            method: 'POST',
+            body: JSON.stringify(input),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const data = await res.json()
+
+        id = data.id
+        prediction = data.prediction
+        const sign = prediction ? ">" : "<"
+        predictResultEl.value = `Доход ${sign} 50 тысяч долларов`
+        correctedButtonEl.disabled = ""
+    })
+
+    correctedButtonEl.addEventListener('click', async () => {
+        const feedback = {
+            predicted: prediction,
+            corrected: correctedSelectEl.value,
+            input: input,
+            id: id,
+        }
+
+        await fetch('/feedback', {
+            method: 'POST',
+            body: JSON.stringify(feedback),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        correctedButtonEl.disabled = "disabled"
+    })
+
+
+
+</script>

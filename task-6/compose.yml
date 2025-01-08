@@ -6,9 +6,9 @@ services:
       context: ..
       dockerfile: ./task-6/Dockerfile-server
     volumes:
-      - ./pipe.pkl:/app/task-6/pipe.pkl:ro
-      - ./categorical_feature_info.json:/app/task-6/categorical_feature_info.json:ro
-      - ./numerical_feature_info.json:/app/task-6/numerical_feature_info.json:ro
+      - ./logs:/app/task-6/logs
+      - ./models:/app/task-6/models:ro
+      - ./meta.json:/app/task-6/meta.json:ro
 
   task6-client:
     build:

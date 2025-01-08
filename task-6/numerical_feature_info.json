@@ -1,1 +1,0 @@
-{"age": {"min": 17, "max": 90, "avg": 38}, "education-num": {"min": 1, "max": 16, "avg": 10}, "capital-gain": {"min": 0, "max": 99999, "avg": 1077}, "capital-loss": {"min": 0, "max": 4356, "avg": 87}, "hours-per-week": {"min": 1, "max": 99, "avg": 40}}

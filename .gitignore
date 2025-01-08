@@ -1,5 +1,11 @@
 .venv
 .idea
 */__pycache__
-task-4/weights.json
-task-5/dump.pkl
+*/node_modules
+*/weights.json
+*/dump.pkl
+*/pipe.pkl
+*/models
+*/meta.json
+*/numerical_feature_info.json
+*/categorical_feature_info.json
