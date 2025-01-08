@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import xgboost as xgb
+
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
@@ -23,7 +25,8 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
 models = {
     'AdaBoost': AdaBoostClassifier(n_estimators=50, learning_rate=1.0),
     'RandomForest': RandomForestClassifier(n_estimators=50, max_depth=10),
-    'LogisticRegression': LogisticRegression()
+    'LogisticRegression': LogisticRegression(),
+    'XGBoost': xgb.XGBClassifier()
 }
 for name, model in models.items():
     model.fit(X_train, Y_train)
