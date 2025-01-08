@@ -9,6 +9,7 @@ RUN poetry install --no-root
 
 COPY ./task-6/server.py ./task-6/server.py
 COPY ./task-6/transformers.py ./task-6/transformers.py
+COPY ./task-6/models.py ./task-6/models.py
 
 EXPOSE 8000
 CMD ["poetry", "run", "python", "task-6/server.py"]

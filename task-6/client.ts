@@ -1,12 +1,11 @@
 import express from "express";
 import axios from "axios";
-import {engine, ExpressHandlebars} from 'express-handlebars'
+import {engine} from 'express-handlebars'
 import bodyParser from "body-parser";
 import Handlebars from 'handlebars'
 
 const PORT = 3000
-// const API_URL = `http://${process.env['API_URL']}`
-const API_URL = `http://127.0.0.1:8000`
+const API_URL = `http://${process.env['API_URL'] ?? '127.0.0.1:8000'}`
 
 const app = express()
 

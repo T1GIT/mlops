@@ -2,7 +2,7 @@ import requests
 import os
 import streamlit as st
 
-API_URL = f'http://{os.environ["API_URL"]}'
+API_URL = f'http://{os.environ.get("API_URL", "127.0.0.1:8000")}'
 
 if "prediction" not in st.session_state:
     st.session_state.prediction = None

@@ -1,9 +1,12 @@
 import json
+import os
 import pickle
 import subprocess
 
+import numpy as np
 import pandas as pd
 from category_encoders import BinaryEncoder, OneHotEncoder
+from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.model_selection import train_test_split
@@ -11,6 +14,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 from transformers import LogTransformer
+from models import ZeroClassifier
 
 df = pd.read_csv(r"task-6/data/income.csv")
 
@@ -46,6 +50,7 @@ Y = df['income >50K']
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
 
 
+
 pipe = Pipeline([
     ('transformer', ColumnTransformer(transformers=[
         ('binary', BinaryEncoder(), binary_features),
@@ -54,7 +59,8 @@ pipe = Pipeline([
         ('scaler', StandardScaler(), numerical_features)
     ], remainder='passthrough')),
     # ('model', RandomForestClassifier(n_estimators=50, max_depth=10))
-    ('model', AdaBoostClassifier(n_estimators=50))
+    # ('model', AdaBoostClassifier(n_estimators=50))
+    ('model', ZeroClassifier())
 ])
 
 pipe.fit(X_train, Y_train)
@@ -64,6 +70,7 @@ result = subprocess.run(['poetry', 'version'], capture_output=True, text=True, c
 version = result.stdout.strip().split(' ')[1]
 tags = [f'v{version}', 'latest']
 
+os.makedirs("task-6/models", exist_ok=True)
 for tag in tags:
     with open(f"task-6/models/{tag}.pkl", "wb") as f:
         pickle.dump(pipe, f)

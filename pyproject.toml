@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mlops"
-version = "0.2.0"
+version = "0.3.0"
 description = ""
 authors = ["Derbin Dmitry <d.derbin@kryptonite.ru>"]
 readme = "README.md"
@@ -18,6 +18,7 @@ task-5-docker = "docker compose -f task-5/compose.yml up -d --build"
 task-6-train = "python task-6/train.py"
 task-6-server = "python task-6/server.py"
 task-6-client = "streamlit run task-6/client.py"
+task-6-client-js = {shell = "cd task-6 && yarn dev"}
 task-6-docker = "docker compose -f task-6/compose.yml up -d --build"
 
 [tool.poetry.dependencies]

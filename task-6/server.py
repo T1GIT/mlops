@@ -12,6 +12,7 @@ from fastapi import FastAPI, Request
 from pydantic import BaseModel, create_model, RootModel
 
 from transformers import LogTransformer
+from models import ZeroClassifier
 
 
 def setup_logger(name, level=logging.INFO) -> logging.Logger:
