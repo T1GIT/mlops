@@ -1,0 +1,7 @@
+{
+    "name": "income-model",
+    "implementation": "mlserver_mlflow.MLflowRuntime",
+    "parameters": {
+        "uri": "models:/sk-learn-random-forest-income-model/1"
+    }
+}
