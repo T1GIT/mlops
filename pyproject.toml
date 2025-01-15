@@ -29,7 +29,7 @@ task-8-inference-test = {shell = "cd task-8 && npm run predict"}
 
 
 [tool.poetry.dependencies]
-python = "3.11"
+python = "~3.11.0"
 pandas = "^2.2.3"
 streamlit = "^1.40.2"
 scikit-learn = "^1.5.2"
